@@ -6,12 +6,12 @@ import (
 	desc "github.com/anton7191/testGrpc/pkg/note_v1"
 )
 
-func (n *Note) CreateNote(ctx context.Context,req *desc.CreateNoteRequest) (*desc.CreateNoteResponse, error) {
+func (n *Note) CreateNote(ctx context.Context, req *desc.CreateNoteRequest) (*desc.CreateNoteResponse, error) {
 	fmt.Println("CreateNote")
 	fmt.Println("title: ", req.GetTitle())
 	fmt.Println("text: ", req.GetText())
 	fmt.Println("author: ", req.GetAuthor())
-	
+
 	return &desc.CreateNoteResponse{
 		Id: 1,
 	}, nil
