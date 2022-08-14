@@ -3,7 +3,7 @@ package note_v1
 import (
 	"context"
 	"fmt"
-	desc "github.com/anton7191/testGrpc/pkg/note_v1"
+	desc "github.com/anton7191/Grpc_Note/pkg/note_v1"
 )
 
 func (n *Note) CreateNote(ctx context.Context, req *desc.CreateNoteRequest) (*desc.CreateNoteResponse, error) {
