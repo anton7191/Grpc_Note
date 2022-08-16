@@ -6,6 +6,7 @@ option go_package = "github.com/anton7191/Grpc_Note/pkg/note_v1";
 
 service NoteV1 {
     rpc CreateNote (CreateNoteRequest) returns (CreateNoteResponse);
+    rpc GetNote (GetNoteRequest) returns (GetNoteResponse);
 }
 
 message CreateNoteRequest{
@@ -16,4 +17,15 @@ message CreateNoteRequest{
 
 message CreateNoteResponse{
     int64 id = 1;
+}
+
+
+message GetNoteRequest{
+    int64 id = 1;
+}
+
+message GetNoteResponse{
+    string title = 1;
+    string text = 2;
+    string author = 3;
 }

@@ -1,9 +1,9 @@
 package main
 
 import (
+	"GrpcNote/internal/app/api/note_v1"
 	"fmt"
-	"github.com/anton7191/testGrpc/internal/app/api/note_v1"
-	desc "github.com/anton7191/testGrpc/pkg/note_v1"
+	desc "github.com/anton7191/Grpc_Note/pkg/note_v1"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -23,5 +23,5 @@ func main() {
 	if err = s.Serve(list); err != nil {
 		log.Fatalf("failed the serve: %s", err.Error())
 	}
-	fmt.Println()
+	fmt.Println("Finish")
 }
