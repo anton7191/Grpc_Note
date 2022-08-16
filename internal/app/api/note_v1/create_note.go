@@ -17,7 +17,7 @@ func (n *Note) CreateNote(ctx context.Context, req *desc.CreateNoteRequest) (*de
 	}, nil
 }
 
-func (*Note) GetNote(ctx context.Context, req *desc.GetNoteRequest) (*desc.GetNoteResponse, error) {
+func (n *Note) GetNote(ctx context.Context, req *desc.GetNoteRequest) (*desc.GetNoteResponse, error) {
 	fmt.Println("GetNote")
 	fmt.Println("Id: ", req.Id)
 
