@@ -9,11 +9,11 @@ import (
 func (n *Note) GetListNote(ctx context.Context, req *desc.GetListNoteRequest) (*desc.GetListNoteResponse, error) {
 	fmt.Println("GetListNote")
 	fmt.Println("Request: ", req.Req)
-	note_list := desc.GetListNoteResponse{
+	noteList := desc.GetListNoteResponse{
 		Note: []*desc.Note{
 			{Id: 1, Title: "1", Text: "first", Author: "Anton"},
 			{Id: 2, Title: "2", Text: "second", Author: "Anton"},
 		},
 	}
-	return &note_list, nil
+	return &noteList, nil
 }

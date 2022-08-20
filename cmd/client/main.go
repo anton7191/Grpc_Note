@@ -28,18 +28,18 @@ func main() {
 	log.Println("--Create Note--")
 	log.Println("Id: ", res.Id)
 
-	res_getnote, err := client.GetNote(context.Background(), &desc.GetNoteRequest{
+	resGetnote, err := client.GetNote(context.Background(), &desc.GetNoteRequest{
 		Id: 1,
 	})
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
 	log.Println("--Get Note--")
-	log.Println("Title: ", res_getnote.Title)
-	log.Println("Text: ", res_getnote.Text)
-	log.Println("Autor: ", res_getnote.Author)
+	log.Println("Title: ", resGetnote.Title)
+	log.Println("Text: ", resGetnote.Text)
+	log.Println("Autor: ", resGetnote.Author)
 
-	res_updatenote, err := client.UpdateNote(context.Background(), &desc.UpdateNoteRequest{
+	resUpdatenote, err := client.UpdateNote(context.Background(), &desc.UpdateNoteRequest{
 		Id:   1,
 		Text: "New text",
 	})
@@ -47,23 +47,23 @@ func main() {
 		log.Fatalf(err.Error())
 	}
 	log.Println("--Status update Note--")
-	log.Println("Status:", res_updatenote.Status)
+	log.Println("Status:", resUpdatenote.Status)
 
-	res_deletenote, err := client.DeleteNote(context.Background(), &desc.DeleteNoteRequest{
+	resDeletenote, err := client.DeleteNote(context.Background(), &desc.DeleteNoteRequest{
 		Id: 1,
 	})
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
 	log.Println("--Status delete Note--")
-	log.Println("Status:", res_deletenote.Status)
+	log.Println("Status:", resDeletenote.Status)
 
-	res_listnote, err := client.GetListNote(context.Background(), &desc.GetListNoteRequest{
+	resListnote, err := client.GetListNote(context.Background(), &desc.GetListNoteRequest{
 		Req: true,
 	})
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
 	log.Println("--List Note--")
-	log.Println("List Note:", res_listnote.Note)
+	log.Println("List Note:", resListnote.Note)
 }
