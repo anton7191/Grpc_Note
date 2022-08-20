@@ -1,11 +1,10 @@
-module GrpcNote
+module github.com/anton7191/Grpc_Note
 
 go 1.18
 
 require (
-	github.com/anton7191/Grpc_Note v0.0.0-20220816182444-2b4b7dcc6d2b
 	google.golang.org/grpc v1.48.0
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/protobuf v1.28.1
 )
 
 require (

@@ -7,7 +7,7 @@ option go_package = "github.com/anton7191/Grpc_Note/pkg/note_v1";
 service NoteV1 {
     rpc CreateNote (CreateNoteRequest) returns (CreateNoteResponse);
     rpc GetNote (GetNoteRequest) returns (GetNoteResponse);
-//    rpc GetListNote (GetListNoteRequest) returns (GetListNoteResponse);
+    rpc GetListNote (GetListNoteRequest) returns (GetListNoteResponse);
     rpc UpdateNote (UpdateNoteRequest) returns (UpdateNoteResponse);
     rpc DeleteNote (DeleteNoteRequest) returns (DeleteNoteResponse);
 }
@@ -48,4 +48,20 @@ message DeleteNoteRequest{
 
 message DeleteNoteResponse{
     bool status = 1;
+}
+
+message GetListNoteRequest{
+    bool req = 1;
+}
+
+message Note {
+    int64 id = 1;
+    string title = 2;
+    string text = 3;
+    string author = 4;
+}
+
+message GetListNoteResponse{
+    repeated Note note = 1;
+
 }

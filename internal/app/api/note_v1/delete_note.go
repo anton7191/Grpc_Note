@@ -1,1 +1,16 @@
 package note_v1
+
+import (
+	"context"
+	"fmt"
+	desc "github.com/anton7191/Grpc_Note/pkg/note_v1"
+)
+
+func (n *Note) DeleteNote(ctx context.Context, req *desc.DeleteNoteRequest) (*desc.DeleteNoteResponse, error) {
+	fmt.Println("Delete Note")
+	fmt.Println("ID: ", req.GetId())
+
+	return &desc.DeleteNoteResponse{
+		Status: true,
+	}, nil
+}

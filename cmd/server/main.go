@@ -1,8 +1,8 @@
 package main
 
 import (
-	"GrpcNote/internal/app/api/note_v1"
 	"fmt"
+	"github.com/anton7191/Grpc_Note/internal/app/api/note_v1"
 	desc "github.com/anton7191/Grpc_Note/pkg/note_v1"
 	"google.golang.org/grpc"
 	"log"
