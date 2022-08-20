@@ -27,4 +27,16 @@ func main() {
 	}
 
 	log.Println("Id: ", res.Id)
+
+	res_getnote, err := client.GetNote(context.Background(), &desc.GetNoteRequest{
+		Id: 1,
+	})
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+
+	log.Println("Title: ", res_getnote.Title)
+	log.Println("Text: ", res_getnote.Text)
+	log.Println("Autor: ", res_getnote.Author)
+
 }
