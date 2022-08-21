@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/anton7191/Grpc_Note/internal/app/api/note_v1"
-	desc "github.com/anton7191/Grpc_Note/pkg/note_v1"
+	"github.com/anton7191/Note-server-api/internal/app/api/note_v1"
+	desc "github.com/anton7191/Note-server-api/pkg/note_v1"
 	"google.golang.org/grpc"
 	"log"
 	"net"
