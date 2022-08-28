@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net"
+
 	"github.com/anton7191/Note-server-api/internal/app/api/note_v1"
 	desc "github.com/anton7191/Note-server-api/pkg/note_v1"
 	"google.golang.org/grpc"
-	"log"
-	"net"
 )
 
 const port = ":2406"

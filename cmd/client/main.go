@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
+	"log"
+
 	desc "github.com/anton7191/Note-server-api/pkg/note_v1"
 	"google.golang.org/grpc"
-	"log"
 )
 
 const address = "localhost:2406"
@@ -35,9 +36,10 @@ func main() {
 		log.Fatalf(err.Error())
 	}
 	log.Println("--Get Note--")
-	log.Println("Title: ", resGetnote.Title)
-	log.Println("Text: ", resGetnote.Text)
-	log.Println("Autor: ", resGetnote.Author)
+	log.Println("ID: ", resGetnote.Note.Id)
+	log.Println("Title: ", resGetnote.Note.Title)
+	log.Println("Text: ", resGetnote.Note.Text)
+	log.Println("Autor: ", resGetnote.Note.Author)
 
 	resUpdatenote, err := client.UpdateNote(context.Background(), &desc.UpdateNoteRequest{
 		Note: &desc.Note{
