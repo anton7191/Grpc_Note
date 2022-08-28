@@ -25,8 +25,8 @@ type NoteV1Client interface {
 	CreateNote(ctx context.Context, in *CreateNoteRequest, opts ...grpc.CallOption) (*CreateNoteResponse, error)
 	GetNote(ctx context.Context, in *GetNoteRequest, opts ...grpc.CallOption) (*GetNoteResponse, error)
 	GetListNote(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetListNoteResponse, error)
-	UpdateNote(ctx context.Context, in *UpdateNoteRequest, opts ...grpc.CallOption) (*UpdateNoteResponse, error)
-	DeleteNote(ctx context.Context, in *DeleteNoteRequest, opts ...grpc.CallOption) (*DeleteNoteResponse, error)
+	UpdateNote(ctx context.Context, in *UpdateNoteRequest, opts ...grpc.CallOption) (*Empty, error)
+	DeleteNote(ctx context.Context, in *DeleteNoteRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type noteV1Client struct {
@@ -64,8 +64,8 @@ func (c *noteV1Client) GetListNote(ctx context.Context, in *Empty, opts ...grpc.
 	return out, nil
 }
 
-func (c *noteV1Client) UpdateNote(ctx context.Context, in *UpdateNoteRequest, opts ...grpc.CallOption) (*UpdateNoteResponse, error) {
-	out := new(UpdateNoteResponse)
+func (c *noteV1Client) UpdateNote(ctx context.Context, in *UpdateNoteRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/api.note_v1.NoteV1/UpdateNote", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -73,8 +73,8 @@ func (c *noteV1Client) UpdateNote(ctx context.Context, in *UpdateNoteRequest, op
 	return out, nil
 }
 
-func (c *noteV1Client) DeleteNote(ctx context.Context, in *DeleteNoteRequest, opts ...grpc.CallOption) (*DeleteNoteResponse, error) {
-	out := new(DeleteNoteResponse)
+func (c *noteV1Client) DeleteNote(ctx context.Context, in *DeleteNoteRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/api.note_v1.NoteV1/DeleteNote", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -89,8 +89,8 @@ type NoteV1Server interface {
 	CreateNote(context.Context, *CreateNoteRequest) (*CreateNoteResponse, error)
 	GetNote(context.Context, *GetNoteRequest) (*GetNoteResponse, error)
 	GetListNote(context.Context, *Empty) (*GetListNoteResponse, error)
-	UpdateNote(context.Context, *UpdateNoteRequest) (*UpdateNoteResponse, error)
-	DeleteNote(context.Context, *DeleteNoteRequest) (*DeleteNoteResponse, error)
+	UpdateNote(context.Context, *UpdateNoteRequest) (*Empty, error)
+	DeleteNote(context.Context, *DeleteNoteRequest) (*Empty, error)
 	mustEmbedUnimplementedNoteV1Server()
 }
 
@@ -107,10 +107,10 @@ func (UnimplementedNoteV1Server) GetNote(context.Context, *GetNoteRequest) (*Get
 func (UnimplementedNoteV1Server) GetListNote(context.Context, *Empty) (*GetListNoteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListNote not implemented")
 }
-func (UnimplementedNoteV1Server) UpdateNote(context.Context, *UpdateNoteRequest) (*UpdateNoteResponse, error) {
+func (UnimplementedNoteV1Server) UpdateNote(context.Context, *UpdateNoteRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateNote not implemented")
 }
-func (UnimplementedNoteV1Server) DeleteNote(context.Context, *DeleteNoteRequest) (*DeleteNoteResponse, error) {
+func (UnimplementedNoteV1Server) DeleteNote(context.Context, *DeleteNoteRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteNote not implemented")
 }
 func (UnimplementedNoteV1Server) mustEmbedUnimplementedNoteV1Server() {}

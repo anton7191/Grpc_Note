@@ -24,5 +24,6 @@ func main() {
 	if err = s.Serve(list); err != nil {
 		log.Fatalf("failed the serve: %s", err.Error())
 	}
+
 	fmt.Println("Finish")
 }

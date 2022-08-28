@@ -9,7 +9,7 @@ import (
 
 func (n *Note) GetNote(ctx context.Context, req *desc.GetNoteRequest) (*desc.GetNoteResponse, error) {
 	fmt.Println("GetNote")
-	fmt.Println("Id: ", req.Id)
+	fmt.Println("Id: ", req.GetId())
 
 	return &desc.GetNoteResponse{
 		Note: &desc.Note{
