@@ -61,9 +61,7 @@ func main() {
 	log.Println("--Status delete Note--")
 	log.Println("Status:", resDeletenote.Status)
 
-	resListnote, err := client.GetListNote(context.Background(), &desc.GetListNoteRequest{
-		Req: true,
-	})
+	resListnote, err := client.GetListNote(context.Background(), &desc.Empty{})
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
