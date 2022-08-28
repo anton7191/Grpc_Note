@@ -40,8 +40,11 @@ func main() {
 	log.Println("Autor: ", resGetnote.Author)
 
 	resUpdatenote, err := client.UpdateNote(context.Background(), &desc.UpdateNoteRequest{
-		Id:   1,
-		Text: "New text",
+		Note: &desc.Note{
+			Id:     1,
+			Title:  "new Title",
+			Text:   "new Text",
+			Author: "new Author"},
 	})
 	if err != nil {
 		log.Fatalf(err.Error())

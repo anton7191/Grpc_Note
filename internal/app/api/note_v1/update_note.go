@@ -8,8 +8,10 @@ import (
 
 func (n *Note) UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) (*desc.UpdateNoteResponse, error) {
 	fmt.Println("Update Note")
-	fmt.Println("ID: ", req.GetId())
-	fmt.Println("text: ", req.GetText())
+	fmt.Println("ID: ", req.Note.GetId())
+	fmt.Println("text: ", req.Note.GetText())
+	fmt.Println("Title: ", req.Note.GetTitle())
+	fmt.Println("Author: ", req.Note.GetAuthor())
 
 	return &desc.UpdateNoteResponse{
 		Status: true,

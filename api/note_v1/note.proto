@@ -33,8 +33,7 @@ message GetNoteResponse{
 }
 
 message UpdateNoteRequest{
-    int64 id = 1;
-    string text = 2;
+    Note note = 1;
 }
 
 message UpdateNoteResponse{
