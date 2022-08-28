@@ -22,7 +22,6 @@ message CreateNoteResponse{
     int64 id = 1;
 }
 
-
 message GetNoteRequest{
     int64 id = 1;
 }
