@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 
-	"github.com/anton7191/Note-server-api/internal/app/api/note_v1"
-	desc "github.com/anton7191/Note-server-api/pkg/note_v1"
+	"github.com/anton7191/note-server-api/internal/app/api/note_v1"
+	desc "github.com/anton7191/note-server-api/pkg/note_v1"
 	"google.golang.org/grpc"
 )
 

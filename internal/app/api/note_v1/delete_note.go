@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	desc "github.com/anton7191/Note-server-api/pkg/note_v1"
+	desc "github.com/anton7191/note-server-api/pkg/note_v1"
 )
 
 func (n *Note) DeleteNote(ctx context.Context, req *desc.DeleteNoteRequest) (*desc.Empty, error) {

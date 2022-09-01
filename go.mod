@@ -3,7 +3,6 @@ module github.com/anton7191/note-server-api
 go 1.18
 
 require (
-	github.com/anton7191/Grpc_Note v0.0.0-20220820195342-653aa71e86bd
 	google.golang.org/grpc v1.48.0
 	google.golang.org/protobuf v1.28.1
 )
