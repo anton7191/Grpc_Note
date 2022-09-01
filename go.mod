@@ -1,4 +1,4 @@
-module github.com/anton7191/Note-server-api
+module github.com/anton7191/note-server-api
 
 go 1.18
 
