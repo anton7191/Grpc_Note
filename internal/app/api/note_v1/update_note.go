@@ -7,7 +7,7 @@ import (
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
 )
 
-func (n *Note) UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) (*desc.Empty, error) {
+func (n *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) (*desc.Empty, error) {
 	fmt.Println("Update Note")
 	fmt.Println("ID: ", req.Note.GetId())
 	fmt.Println("text: ", req.Note.GetText())

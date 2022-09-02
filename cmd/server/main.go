@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-const port = ":2406"
+const port = ":5161"
 
 func main() {
 	list, err := net.Listen("tcp", port)

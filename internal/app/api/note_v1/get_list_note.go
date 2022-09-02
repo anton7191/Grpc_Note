@@ -7,7 +7,7 @@ import (
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
 )
 
-func (n *Note) GetListNote(ctx context.Context, req *desc.Empty) (*desc.GetListNoteResponse, error) {
+func (n *Implementation) GetListNote(ctx context.Context, req *desc.Empty) (*desc.GetListNoteResponse, error) {
 	fmt.Println("GetListNote")
 	fmt.Println("Request: ", "Empty")
 	noteList := &desc.GetListNoteResponse{
