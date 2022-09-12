@@ -10,8 +10,6 @@ import (
 )
 
 func (n *Implementation) GetListNote(ctx context.Context, req *desc.Empty) (*desc.GetListNoteResponse, error) {
-	fmt.Println("GetListNote")
-
 	dbDsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		host, port, dbUser, dbPassword, dbName, sslMode,
@@ -37,16 +35,16 @@ func (n *Implementation) GetListNote(ctx context.Context, req *desc.Empty) (*des
 	}
 	defer row.Close()
 
-	noteList := &desc.GetListNoteResponse{}
+	noteList := []*desc.Note{}
 
 	for row.Next() {
-		var noteFromDb desc.Note
-		err = row.Scan(&noteFromDb.Id, &noteFromDb.Title, &noteFromDb.Text, &noteFromDb.Author)
+		var note desc.Note
+		err = row.Scan(&note.Id, &note.Title, &note.Text, &note.Author)
 		if err != nil {
 			return nil, err
 		}
-		noteList.Note = append(noteList.Note, &noteFromDb)
+		noteList = append(noteList, &note)
 	}
 
-	return noteList, nil
+	return &desc.GetListNoteResponse{Note: noteList}, nil
 }

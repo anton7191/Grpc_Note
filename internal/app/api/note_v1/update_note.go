@@ -3,6 +3,7 @@ package note_v1
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
@@ -10,7 +11,6 @@ import (
 )
 
 func (n *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) (*desc.Empty, error) {
-	fmt.Println("Update Note")
 	dbDsn := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		host, port, dbUser, dbPassword, dbName, sslMode,
@@ -24,9 +24,10 @@ func (n *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteReq
 	builder := sq.Update(noteTable).
 		PlaceholderFormat(sq.Dollar).
 		SetMap(sq.Eq{
-			"title":  req.Note.GetTitle(),
-			"text":   req.Note.GetText(),
-			"author": req.Note.GetAuthor(),
+			"title":      req.Note.GetTitle(),
+			"text":       req.Note.GetText(),
+			"author":     req.Note.GetAuthor(),
+			"updated_at": time.Now(),
 		}).
 		Where(sq.Eq{"id": req.Note.GetId()})
 

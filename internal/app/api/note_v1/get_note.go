@@ -23,7 +23,8 @@ func (n *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) 
 	builder := sq.Select("id", "title", "text", "author").
 		PlaceholderFormat(sq.Dollar).
 		From(noteTable).
-		Where(sq.Eq{"id": req.GetId()})
+		Where(sq.Eq{"id": req.GetId()}).
+		Limit(1)
 
 	query, args, err := builder.ToSql()
 	if err != nil {
@@ -37,22 +38,22 @@ func (n *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) 
 	defer row.Close()
 
 	row.Next()
-	var idFromDb int64
-	var titleFromDb string
-	var textFromDb string
-	var authorFromDb string
+	var id int64
+	var title string
+	var text string
+	var author string
 
-	err = row.Scan(&idFromDb, &titleFromDb, &textFromDb, &authorFromDb)
+	err = row.Scan(&id, &title, &text, &author)
 	if err != nil {
 		return nil, err
 	}
 
 	return &desc.GetNoteResponse{
 		Note: &desc.Note{
-			Id:     idFromDb,
-			Author: authorFromDb,
-			Text:   textFromDb,
-			Title:  titleFromDb,
+			Id:     id,
+			Author: author,
+			Text:   text,
+			Title:  title,
 		},
 	}, nil
 }
