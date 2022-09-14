@@ -3,10 +3,12 @@ package note_v1
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
 	"github.com/jmoiron/sqlx"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (n *Implementation) GetListNote(ctx context.Context, req *desc.Empty) (*desc.GetListNoteResponse, error) {
@@ -20,7 +22,7 @@ func (n *Implementation) GetListNote(ctx context.Context, req *desc.Empty) (*des
 	}
 	defer db.Close()
 
-	builder := sq.Select("id", "title", "text", "author").
+	builder := sq.Select("id", "title", "text", "author", "created_at", "updated_at").
 		PlaceholderFormat(sq.Dollar).
 		From(noteTable)
 
@@ -36,13 +38,17 @@ func (n *Implementation) GetListNote(ctx context.Context, req *desc.Empty) (*des
 	defer row.Close()
 
 	noteList := []*desc.Note{}
+	var createdAt time.Time
+	var updatedAt time.Time
 
 	for row.Next() {
 		var note desc.Note
-		err = row.Scan(&note.Id, &note.Title, &note.Text, &note.Author)
+		err = row.Scan(&note.Id, &note.Title, &note.Text, &note.Author, &createdAt, &updatedAt)
 		if err != nil {
 			return nil, err
 		}
+		note.CreatedAt = timestamppb.New(createdAt)
+		note.UpdatedAt = timestamppb.New(updatedAt)
 		noteList = append(noteList, &note)
 	}
 

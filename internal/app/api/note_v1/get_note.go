@@ -3,10 +3,12 @@ package note_v1
 import (
 	"context"
 	"fmt"
+	"time"
 
 	sq "github.com/Masterminds/squirrel"
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
 	"github.com/jmoiron/sqlx"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (n *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) (*desc.GetNoteResponse, error) {
@@ -20,7 +22,7 @@ func (n *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) 
 	}
 	defer db.Close()
 
-	builder := sq.Select("id", "title", "text", "author").
+	builder := sq.Select("id", "title", "text", "author", "created_at", "updated_at").
 		PlaceholderFormat(sq.Dollar).
 		From(noteTable).
 		Where(sq.Eq{"id": req.GetId()}).
@@ -42,18 +44,24 @@ func (n *Implementation) GetNote(ctx context.Context, req *desc.GetNoteRequest) 
 	var title string
 	var text string
 	var author string
+	var createdAt time.Time
+	var updatedAt time.Time
 
-	err = row.Scan(&id, &title, &text, &author)
+	fmt.Println("row: ", row)
+	err = row.Scan(&id, &title, &text, &author, &createdAt, &updatedAt)
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("created: ", createdAt)
 
 	return &desc.GetNoteResponse{
 		Note: &desc.Note{
-			Id:     id,
-			Author: author,
-			Text:   text,
-			Title:  title,
+			Id:        id,
+			Author:    author,
+			Text:      text,
+			Title:     title,
+			CreatedAt: timestamppb.New(createdAt),
+			UpdatedAt: timestamppb.New(updatedAt),
 		},
 	}, nil
 }

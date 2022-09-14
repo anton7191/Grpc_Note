@@ -40,7 +40,9 @@ func main() {
 	log.Println("ID: ", resGetnote.Note.GetId())
 	log.Println("Title: ", resGetnote.Note.GetTitle())
 	log.Println("Text: ", resGetnote.Note.GetText())
-	log.Println("Autor: ", resGetnote.Note.GetAuthor())
+	log.Println("Author: ", resGetnote.Note.GetAuthor())
+	log.Println("Created: ", resGetnote.Note.GetCreatedAt().AsTime())
+	log.Println("Updated: ", resGetnote.Note.GetUpdatedAt().AsTime())
 
 	_, err = client.UpdateNote(ctx, &desc.UpdateNoteRequest{
 		Note: &desc.Note{
