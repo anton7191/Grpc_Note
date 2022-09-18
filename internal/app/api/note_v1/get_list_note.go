@@ -2,6 +2,7 @@ package note_v1
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"time"
 
@@ -39,16 +40,20 @@ func (n *Implementation) GetListNote(ctx context.Context, req *desc.Empty) (*des
 
 	noteList := []*desc.Note{}
 	var createdAt time.Time
-	var updatedAt time.Time
+	var updatedAt sql.NullTime
 
 	for row.Next() {
 		var note desc.Note
+		var updatedAtPb *timestamppb.Timestamp
 		err = row.Scan(&note.Id, &note.Title, &note.Text, &note.Author, &createdAt, &updatedAt)
 		if err != nil {
 			return nil, err
 		}
 		note.CreatedAt = timestamppb.New(createdAt)
-		note.UpdatedAt = timestamppb.New(updatedAt)
+		if updatedAt.Valid {
+			updatedAtPb = timestamppb.New(updatedAt.Time)
+		}
+		note.UpdatedAt = updatedAtPb
 		noteList = append(noteList, &note)
 	}
 

@@ -54,5 +54,4 @@ message DeleteNoteRequest{
 
 message GetListNoteResponse{
     repeated Note note = 1;
-
 }

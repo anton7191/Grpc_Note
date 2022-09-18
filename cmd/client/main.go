@@ -31,7 +31,7 @@ func main() {
 	log.Println("Id: ", res.GetId())
 
 	resGetnote, err := client.GetNote(ctx, &desc.GetNoteRequest{
-		Id: 2,
+		Id: 10,
 	})
 	if err != nil {
 		log.Fatalf(err.Error())
@@ -42,7 +42,11 @@ func main() {
 	log.Println("Text: ", resGetnote.Note.GetText())
 	log.Println("Author: ", resGetnote.Note.GetAuthor())
 	log.Println("Created: ", resGetnote.Note.GetCreatedAt().AsTime())
-	log.Println("Updated: ", resGetnote.Note.GetUpdatedAt().AsTime())
+	if resGetnote.Note.GetUpdatedAt() != nil {
+		log.Println("Updated: ", resGetnote.Note.GetUpdatedAt().AsTime())
+	} else {
+		log.Println("Updated: ", "no updated")
+	}
 
 	_, err = client.UpdateNote(ctx, &desc.UpdateNoteRequest{
 		Note: &desc.Note{
