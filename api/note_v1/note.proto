@@ -3,11 +3,17 @@ syntax = "proto3";
 package api.note_v1;
 
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto"
 
 option go_package = "github.com/anton7191/note-server-api/pkg/note_v1";
 
 service NoteV1 {
-    rpc CreateNote (CreateNoteRequest) returns (CreateNoteResponse);
+    rpc CreateNote (CreateNoteRequest) returns (CreateNoteResponse){
+        option (google.api.http) = {
+            post: "note/v1/create"
+            body: "*"
+        };
+    }
     rpc GetNote (GetNoteRequest) returns (GetNoteResponse);
     rpc GetListNote (Empty) returns (GetListNoteResponse);
     rpc UpdateNote (UpdateNoteRequest) returns (Empty);
