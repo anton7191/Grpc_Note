@@ -3,21 +3,42 @@ syntax = "proto3";
 package api.note_v1;
 
 import "google/protobuf/timestamp.proto";
-import "google/api/annotations.proto"
+import "google/api/annotations.proto";
+import "validate/validate.proto";
 
 option go_package = "github.com/anton7191/note-server-api/pkg/note_v1";
 
 service NoteV1 {
     rpc CreateNote (CreateNoteRequest) returns (CreateNoteResponse){
         option (google.api.http) = {
-            post: "note/v1/create"
+            post: "/note/v1/create"
             body: "*"
         };
     }
-    rpc GetNote (GetNoteRequest) returns (GetNoteResponse);
-    rpc GetListNote (Empty) returns (GetListNoteResponse);
-    rpc UpdateNote (UpdateNoteRequest) returns (Empty);
-    rpc DeleteNote (DeleteNoteRequest) returns (Empty);
+    rpc GetNote (GetNoteRequest) returns (GetNoteResponse){
+        option (google.api.http) = {
+            post: "/note/v1/get"
+            body: "*"
+        };
+    }
+    rpc GetListNote (Empty) returns (GetListNoteResponse){
+        option (google.api.http) = {
+            post: "/note/v1/getList"
+            body: "*"
+        };
+    }
+    rpc UpdateNote (UpdateNoteRequest) returns (Empty){
+        option (google.api.http) = {
+            post: "/note/v1/update"
+            body: "*"
+        };
+    }
+    rpc DeleteNote (DeleteNoteRequest) returns (Empty){
+        option (google.api.http) = {
+            post: "/note/v1/delete"
+            body: "*"
+        };
+    }
 }
 
 message Empty{
@@ -35,7 +56,7 @@ message Note {
 message CreateNoteRequest{
     string title = 1;
     string text = 2;
-    string author = 3;
+    string author = 3 [(validate.rules).string = {min_len: 3, max_len: 32}];
 }
 
 message CreateNoteResponse{
