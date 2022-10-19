@@ -323,10 +323,10 @@ func (m *CreateNoteRequest) validate(all bool) error {
 
 	// no validation rules for Text
 
-	if l := utf8.RuneCountInString(m.GetAuthor()); l < 5 || l > 10 {
+	if l := utf8.RuneCountInString(m.GetAuthor()); l < 2 || l > 32 {
 		err := CreateNoteRequestValidationError{
 			field:  "Author",
-			reason: "value length must be between 5 and 10 runes, inclusive",
+			reason: "value length must be between 2 and 32 runes, inclusive",
 		}
 		if !all {
 			return err
@@ -540,7 +540,16 @@ func (m *GetNoteRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if m.GetId() <= 0 {
+		err := GetNoteRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetNoteRequestMultiError(errors)
@@ -902,7 +911,16 @@ func (m *DeleteNoteRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	if m.GetId() <= 0 {
+		err := DeleteNoteRequestValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return DeleteNoteRequestMultiError(errors)

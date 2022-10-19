@@ -1,5 +1,5 @@
 LOCAL_MIGRATION_DIR=./migrations
-LOCAL_MIGRATION_DSN="host=localhost port=5161 dbname=note-service user=note-service-user password=note-service-password sslmode=disable"
+LOCAL_MIGRATION_DSN="host=localhost port=54321 dbname=note-service user=note-service-user password=note-service-password sslmode=disable"
 
 PHONY: generate
 

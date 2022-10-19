@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-const address = "localhost:5161"
+const address = "localhost:6151"
 
 func main() {
 	ctx := context.Background()
@@ -31,7 +31,7 @@ func main() {
 	log.Println("Id: ", res.GetId())
 
 	resGetnote, err := client.GetNote(ctx, &desc.GetNoteRequest{
-		Id: 10,
+		Id: 9,
 	})
 	if err != nil {
 		log.Fatalf(err.Error())
@@ -50,7 +50,7 @@ func main() {
 
 	_, err = client.UpdateNote(ctx, &desc.UpdateNoteRequest{
 		Note: &desc.Note{
-			Id:     10,
+			Id:     11,
 			Title:  "new Title",
 			Text:   "new Text",
 			Author: "new Author"},
@@ -61,7 +61,7 @@ func main() {
 	log.Println("--Status update Note--")
 
 	_, err = client.DeleteNote(ctx, &desc.DeleteNoteRequest{
-		Id: 6,
+		Id: 1,
 	})
 	if err != nil {
 		log.Fatalf(err.Error())
