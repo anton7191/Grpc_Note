@@ -42,9 +42,6 @@ service NoteV1 {
     }
 }
 
-//message Empty{
-//}
-
 message Note {
     int64 id = 1;
     string title = 2;

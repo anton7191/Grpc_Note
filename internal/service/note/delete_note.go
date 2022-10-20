@@ -7,10 +7,5 @@ import (
 )
 
 func (s *Service) DeleteNote(ctx context.Context, req *desc.DeleteNoteRequest) error {
-	err := s.noteRepository.DeleteNote(ctx, req)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return s.noteRepository.DeleteNote(ctx, req)
 }
