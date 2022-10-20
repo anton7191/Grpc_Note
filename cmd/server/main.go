@@ -97,10 +97,11 @@ func startHttp() error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	err := desc.RegisterNoteV1HandlerFromEndpoint(ctx, mux, hostGrpc, opts)
-	fmt.Println("Http server is running on port: ", hostHttp)
 	if err != nil {
 		return err
 	}
+
+	fmt.Println("Http server is running on port: ", hostHttp)
 
 	return http.ListenAndServe(hostHttp, mux)
 }

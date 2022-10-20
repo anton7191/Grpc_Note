@@ -5,6 +5,7 @@ package api.note_v1;
 import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 import "validate/validate.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/anton7191/note-server-api/pkg/note_v1";
 
@@ -21,19 +22,19 @@ service NoteV1 {
             body: "*"
         };
     }
-    rpc GetListNote (Empty) returns (GetListNoteResponse){
+    rpc GetListNote (google.protobuf.Empty) returns (GetListNoteResponse){
         option (google.api.http) = {
-            post: "/note/v1/getList"
+            post: "/note/v1/get-list"
             body: "*"
         };
     }
-    rpc UpdateNote (UpdateNoteRequest) returns (Empty){
+    rpc UpdateNote (UpdateNoteRequest) returns (google.protobuf.Empty){
         option (google.api.http) = {
             post: "/note/v1/update"
             body: "*"
         };
     }
-    rpc DeleteNote (DeleteNoteRequest) returns (Empty){
+    rpc DeleteNote (DeleteNoteRequest) returns (google.protobuf.Empty){
         option (google.api.http) = {
             post: "/note/v1/delete"
             body: "*"
@@ -41,8 +42,8 @@ service NoteV1 {
     }
 }
 
-message Empty{
-}
+//message Empty{
+//}
 
 message Note {
     int64 id = 1;

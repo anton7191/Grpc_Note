@@ -6,6 +6,7 @@ import (
 
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 const address = "localhost:6151"
@@ -68,7 +69,7 @@ func main() {
 	}
 	log.Println("--Status delete Note--")
 
-	resListnote, err := client.GetListNote(ctx, &desc.Empty{})
+	resListnote, err := client.GetListNote(ctx, &emptypb.Empty{})
 	if err != nil {
 		log.Fatalf(err.Error())
 	}

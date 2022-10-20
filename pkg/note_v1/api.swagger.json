@@ -50,7 +50,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/note_v1Empty"
+              "properties": {}
             }
           },
           "default": {
@@ -107,7 +107,7 @@
         ]
       }
     },
-    "/note/v1/getList": {
+    "/note/v1/get-list": {
       "post": {
         "operationId": "NoteV1_GetListNote",
         "responses": {
@@ -130,7 +130,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/note_v1Empty"
+              "properties": {}
             }
           }
         ],
@@ -146,7 +146,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/note_v1Empty"
+              "properties": {}
             }
           },
           "default": {
@@ -204,9 +204,6 @@
           "format": "int64"
         }
       }
-    },
-    "note_v1Empty": {
-      "type": "object"
     },
     "note_v1GetListNoteResponse": {
       "type": "object",

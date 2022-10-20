@@ -17,7 +17,7 @@ type NoteRepository interface {
 	GetNote(ctx context.Context, req *desc.GetNoteRequest) (*desc.Note, error)
 	UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) error
 	DeleteNote(ctx context.Context, req *desc.DeleteNoteRequest) error
-	GetListNote(ctx context.Context, req *desc.Empty) ([]*desc.Note, error)
+	GetListNote(ctx context.Context) ([]*desc.Note, error)
 }
 
 type repository struct {
@@ -141,7 +141,7 @@ func (r *repository) DeleteNote(ctx context.Context, req *desc.DeleteNoteRequest
 
 	return nil
 }
-func (r *repository) GetListNote(ctx context.Context, req *desc.Empty) ([]*desc.Note, error) {
+func (r *repository) GetListNote(ctx context.Context) ([]*desc.Note, error) {
 	builder := sq.Select("id", "title", "text", "author", "created_at", "updated_at").
 		PlaceholderFormat(sq.Dollar).
 		From(table.Note)
