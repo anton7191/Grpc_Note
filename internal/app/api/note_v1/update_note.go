@@ -2,44 +2,16 @@ package note_v1
 
 import (
 	"context"
-	"fmt"
-	"time"
 
-	sq "github.com/Masterminds/squirrel"
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
-	"github.com/jmoiron/sqlx"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (n *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) (*desc.Empty, error) {
-	dbDsn := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		host, port, dbUser, dbPassword, dbName, sslMode,
-	)
-	db, err := sqlx.Open("pgx", dbDsn)
-	if err != nil {
-		return nil, err
-	}
-	defer db.Close()
-
-	builder := sq.Update(noteTable).
-		PlaceholderFormat(sq.Dollar).
-		SetMap(sq.Eq{
-			"title":      req.Note.GetTitle(),
-			"text":       req.Note.GetText(),
-			"author":     req.Note.GetAuthor(),
-			"updated_at": time.Now(),
-		}).
-		Where(sq.Eq{"id": req.Note.GetId()})
-
-	query, args, err := builder.ToSql()
+func (i *Implementation) UpdateNote(ctx context.Context, req *desc.UpdateNoteRequest) (*emptypb.Empty, error) {
+	err := i.noteService.UpdateNote(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = db.Exec(query, args...)
-	if err != nil {
-		return nil, err
-	}
-
-	return &desc.Empty{}, nil
+	return &emptypb.Empty{}, nil
 }
