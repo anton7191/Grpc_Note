@@ -13,7 +13,7 @@ const address = "localhost:6151"
 
 func main() {
 	ctx := context.Background()
-	con, err := grpc.Dial(address, grpc.WithInsecure())
+	con, err := grpc.Dial(address, grpc.WithInsecure()) //nolint
 	if err != nil {
 		log.Fatalf("failed to grpc connect: %s", err.Error())
 	}
