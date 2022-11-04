@@ -156,7 +156,7 @@ func (r *repository) GetListNote(ctx context.Context) ([]*model.Note, error) {
 	}
 
 	var notes []*model.Note
-	err = r.client.DB().SelectContext(ctx, notes, q, args...)
+	err = r.client.DB().SelectContext(ctx, &notes, q, args...)
 	if err != nil {
 		return nil, err
 	}
