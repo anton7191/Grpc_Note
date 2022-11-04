@@ -3,16 +3,14 @@ package note
 import (
 	"context"
 
-	desc "github.com/anton7191/note-server-api/pkg/note_v1"
+	"github.com/anton7191/note-server-api/internal/model"
 )
 
-func (s *Service) GetNote(ctx context.Context, req *desc.GetNoteRequest) (*desc.GetNoteResponse, error) {
-	note, err := s.noteRepository.GetNote(ctx, req)
+func (s *Service) GetNote(ctx context.Context, id int64) (*model.Note, error) {
+	note, err := s.noteRepository.GetNote(ctx, id)
 	if err != nil {
 		return nil, err
 	}
-	return &desc.GetNoteResponse{
-		Note: note,
-	}, nil
+	return note, nil
 
 }
