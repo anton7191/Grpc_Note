@@ -36,7 +36,7 @@ func main() {
 	log.Println("Id: ", res.GetId())
 
 	resGetNote, err := client.GetNote(ctx, &desc.GetNoteRequest{
-		Id: 9,
+		Id: 10,
 	})
 	if err != nil {
 		log.Fatalf(err.Error())
@@ -58,7 +58,7 @@ func main() {
 	updateNote.Text.Scan("NEW NEW")
 	updateNote.Author.Scan("New Anton")
 	_, err = client.UpdateNote(ctx, &desc.UpdateNoteRequest{
-		Id:   23,
+		Id:   40,
 		Note: converter.ToDescUpdateNoteInfo(updateNote),
 	})
 	if err != nil {

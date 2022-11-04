@@ -92,13 +92,13 @@ func (r *repository) UpdateNote(ctx context.Context, id int64, updateNoteInfo *m
 		Where(sq.Eq{"id": id})
 
 	if updateNoteInfo.Title.Valid {
-		builder.Set("title", updateNoteInfo.Title.String)
+		builder = builder.Set("title", updateNoteInfo.Title.String)
 	}
 	if updateNoteInfo.Text.Valid {
-		builder.Set("text", updateNoteInfo.Text.String)
+		builder = builder.Set("text", updateNoteInfo.Text.String)
 	}
 	if updateNoteInfo.Author.Valid {
-		builder.Set("author", updateNoteInfo.Author.String)
+		builder = builder.Set("author", updateNoteInfo.Author.String)
 	}
 
 	query, args, err := builder.ToSql()
