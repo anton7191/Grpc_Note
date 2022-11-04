@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/anton7191/note-server-api/internal/converter"
@@ -54,9 +55,19 @@ func main() {
 	}
 
 	updateNote := new(model.UpdateNoteInfo)
-	updateNote.Title.Scan("NEW")
-	updateNote.Text.Scan("NEW NEW")
-	updateNote.Author.Scan("New Anton")
+	err = updateNote.Title.Scan("NEW")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	err = updateNote.Text.Scan("NEW NEW")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	err = updateNote.Author.Scan("New Anton")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	_, err = client.UpdateNote(ctx, &desc.UpdateNoteRequest{
 		Id:   40,
 		Note: converter.ToDescUpdateNoteInfo(updateNote),

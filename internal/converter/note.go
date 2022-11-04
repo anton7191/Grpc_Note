@@ -2,6 +2,7 @@ package converter
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/anton7191/note-server-api/internal/model"
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
@@ -27,9 +28,19 @@ func ToDescNoteInfo(noteInfo *model.NoteInfo) *desc.NoteInfo {
 
 func ToUpdateNoteInfo(updateNoteInfo *desc.UpdateNoteInfo) *model.UpdateNoteInfo {
 	var title, text, author sql.NullString
-	title.Scan(updateNoteInfo.GetTitle().GetValue())
-	text.Scan(updateNoteInfo.GetText().GetValue())
-	author.Scan(updateNoteInfo.GetAuthor().GetValue())
+	err := title.Scan(updateNoteInfo.GetTitle().GetValue())
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	err = text.Scan(updateNoteInfo.GetText().GetValue())
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	err = author.Scan(updateNoteInfo.GetAuthor().GetValue())
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	return &model.UpdateNoteInfo{
 		Title:  title,
 		Text:   text,
