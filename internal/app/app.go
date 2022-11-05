@@ -133,7 +133,7 @@ func (a *App) runGRPC() error {
 func (a *App) runHttp() error {
 	fmt.Println("Http server is running on port: ", a.serviceProvider.GetConfig().HTTP.GetAddress())
 
-	if err := http.ListenAndServe(a.serviceProvider.config.HTTP.GetAddress(), a.mux); err != nil {
+	if err := http.ListenAndServe(a.serviceProvider.GetConfig().HTTP.GetAddress(), a.mux); err != nil {
 		log.Fatalf("failed to process muxer: %s", err.Error())
 	}
 
