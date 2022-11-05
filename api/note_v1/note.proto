@@ -63,7 +63,6 @@ message Note {
 }
 
 message CreateNoteRequest{
-    //int64 id = 1;
     NoteInfo note = 1;
 }
 

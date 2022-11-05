@@ -115,12 +115,12 @@ func (a *App) initPublicHTTPHandlers(ctx context.Context) error {
 }
 
 func (a *App) runGRPC() error {
-	list, err := net.Listen("tcp", a.serviceProvider.config.GRPC.GetAddress())
+	list, err := net.Listen("tcp", a.serviceProvider.GetConfig().GRPC.GetAddress())
 	if err != nil {
 		log.Fatalf("failed to mapping port: %s", err.Error())
 	}
 
-	fmt.Println("GRPC server is running on port: ", a.serviceProvider.config.GRPC.GetAddress())
+	fmt.Println("GRPC server is running on port: ", a.serviceProvider.GetConfig().GRPC.GetAddress())
 
 	if err := a.grpcServer.Serve(list); err != nil {
 		log.Fatalf("failed the serve: %s", err.Error())
@@ -131,7 +131,7 @@ func (a *App) runGRPC() error {
 }
 
 func (a *App) runHttp() error {
-	fmt.Println("Http server is running on port: ", a.serviceProvider.config.HTTP.GetAddress())
+	fmt.Println("Http server is running on port: ", a.serviceProvider.GetConfig().HTTP.GetAddress())
 
 	if err := http.ListenAndServe(a.serviceProvider.config.HTTP.GetAddress(), a.mux); err != nil {
 		log.Fatalf("failed to process muxer: %s", err.Error())

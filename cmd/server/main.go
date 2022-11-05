@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
 
 	"github.com/anton7191/note-server-api/internal/app"
@@ -11,14 +12,15 @@ import (
 var pathConfig string
 
 func init() {
-	flag.StringVar(&pathConfig, "config", "./config.json", "Path to configuration")
+	flag.StringVar(&pathConfig, "config", "config/config.json", "Path to configuration")
 }
 
 func main() {
 	flag.Parse()
 
 	ctx := context.Background()
-	a, err := app.NewApp(ctx, "config/config.json")
+	fmt.Println(pathConfig)
+	a, err := app.NewApp(ctx, pathConfig)
 	if err != nil {
 		log.Fatalf("failed to create app: %s", err.Error())
 	}
