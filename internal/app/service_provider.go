@@ -6,7 +6,7 @@ import (
 
 	"github.com/anton7191/note-server-api/internal/config"
 	"github.com/anton7191/note-server-api/internal/pkg/db"
-	"github.com/anton7191/note-server-api/internal/repository"
+	note2 "github.com/anton7191/note-server-api/internal/repository/note"
 	"github.com/anton7191/note-server-api/internal/service/note"
 )
 
@@ -14,7 +14,7 @@ type serviceProvider struct {
 	db             db.Client
 	configPath     string
 	config         *config.Config
-	noteRepository repository.NoteRepository
+	noteRepository note2.Repository
 	noteService    *note.Service
 }
 
@@ -54,9 +54,9 @@ func (s *serviceProvider) GetDB(ctx context.Context) db.Client {
 	return s.db
 }
 
-func (s *serviceProvider) GetNoteRepository(ctx context.Context) repository.NoteRepository {
+func (s *serviceProvider) GetNoteRepository(ctx context.Context) note2.Repository {
 	if s.noteRepository == nil {
-		s.noteRepository = repository.NewNoteRepository(s.GetDB(ctx))
+		s.noteRepository = note2.NewNoteRepository(s.GetDB(ctx))
 	}
 
 	return s.noteRepository

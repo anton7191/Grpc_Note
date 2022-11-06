@@ -1,12 +1,14 @@
 package note
 
-import "github.com/anton7191/note-server-api/internal/repository"
+import (
+	"github.com/anton7191/note-server-api/internal/repository/note"
+)
 
 type Service struct {
-	noteRepository repository.NoteRepository
+	noteRepository note.Repository
 }
 
-func NewService(noteRepository repository.NoteRepository) *Service {
+func NewService(noteRepository note.Repository) *Service {
 	return &Service{
 		noteRepository: noteRepository,
 	}

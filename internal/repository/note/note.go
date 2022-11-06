@@ -1,4 +1,4 @@
-package repository
+package note
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"github.com/anton7191/note-server-api/internal/repository/table"
 )
 
-type NoteRepository interface {
+type Repository interface {
 	CreateNote(ctx context.Context, noteInfo *model.NoteInfo) (int64, error)
 	GetNote(ctx context.Context, id int64) (*model.Note, error)
 	UpdateNote(ctx context.Context, id int64, updateNoteInfo *model.UpdateNoteInfo) error
@@ -22,7 +22,7 @@ type repository struct {
 	client db.Client
 }
 
-func NewNoteRepository(client db.Client) NoteRepository {
+func NewNoteRepository(client db.Client) Repository {
 	return &repository{
 		client: client,
 	}
