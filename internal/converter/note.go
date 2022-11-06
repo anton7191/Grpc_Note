@@ -2,7 +2,6 @@ package converter
 
 import (
 	"database/sql"
-	"fmt"
 
 	"github.com/anton7191/note-server-api/internal/model"
 	desc "github.com/anton7191/note-server-api/pkg/note_v1"
@@ -19,6 +18,9 @@ func ToNoteInfo(noteInfo *desc.NoteInfo) *model.NoteInfo {
 }
 
 func ToDescNoteInfo(noteInfo *model.NoteInfo) *desc.NoteInfo {
+	if noteInfo == nil {
+		noteInfo = new(model.NoteInfo)
+	}
 	return &desc.NoteInfo{
 		Title:  noteInfo.Title,
 		Text:   noteInfo.Text,
@@ -28,17 +30,25 @@ func ToDescNoteInfo(noteInfo *model.NoteInfo) *desc.NoteInfo {
 
 func ToUpdateNoteInfo(updateNoteInfo *desc.UpdateNoteInfo) *model.UpdateNoteInfo {
 	var title, text, author sql.NullString
-	err := title.Scan(updateNoteInfo.GetTitle().GetValue())
-	if err != nil {
-		fmt.Println(err.Error())
+	if updateNoteInfo.GetTitle() != nil {
+		title = sql.NullString{
+			String: updateNoteInfo.GetTitle().GetValue(),
+			Valid:  updateNoteInfo.GetTitle() != nil,
+		}
 	}
-	err = text.Scan(updateNoteInfo.GetText().GetValue())
-	if err != nil {
-		fmt.Println(err.Error())
+
+	if updateNoteInfo.GetText() != nil {
+		title = sql.NullString{
+			String: updateNoteInfo.GetText().GetValue(),
+			Valid:  updateNoteInfo.GetText() != nil,
+		}
 	}
-	err = author.Scan(updateNoteInfo.GetAuthor().GetValue())
-	if err != nil {
-		fmt.Println(err.Error())
+
+	if updateNoteInfo.GetAuthor() != nil {
+		title = sql.NullString{
+			String: updateNoteInfo.GetAuthor().GetValue(),
+			Valid:  updateNoteInfo.GetAuthor() != nil,
+		}
 	}
 
 	return &model.UpdateNoteInfo{

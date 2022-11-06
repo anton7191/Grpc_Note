@@ -41,7 +41,7 @@ func (r *repository) CreateNote(ctx context.Context, noteInfo *model.NoteInfo) (
 	}
 
 	q := db.Query{
-		Name:     "CreateNoteRepo",
+		Name:     "note_repository.Create",
 		QueryRaw: query,
 	}
 
@@ -72,7 +72,7 @@ func (r *repository) GetNote(ctx context.Context, id int64) (*model.Note, error)
 	}
 
 	q := db.Query{
-		Name:     "GetNoteRepo",
+		Name:     "note_repository.Get",
 		QueryRaw: query,
 	}
 
@@ -107,7 +107,7 @@ func (r *repository) UpdateNote(ctx context.Context, id int64, updateNoteInfo *m
 	}
 
 	q := db.Query{
-		Name:     "UpdateNoteRepo",
+		Name:     "note_repository.Update",
 		QueryRaw: query,
 	}
 
@@ -129,7 +129,7 @@ func (r *repository) DeleteNote(ctx context.Context, id int64) error {
 	}
 
 	q := db.Query{
-		Name:     "DeleteNoteRepo",
+		Name:     "note_repository.Delete",
 		QueryRaw: query,
 	}
 
@@ -151,7 +151,7 @@ func (r *repository) GetListNote(ctx context.Context) ([]*model.Note, error) {
 	}
 
 	q := db.Query{
-		Name:     "GetListNoteRepo",
+		Name:     "note_repository.GetList",
 		QueryRaw: query,
 	}
 

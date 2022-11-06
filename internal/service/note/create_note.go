@@ -7,10 +7,5 @@ import (
 )
 
 func (s *Service) CreateNote(ctx context.Context, noteInfo *model.NoteInfo) (int64, error) {
-	id, err := s.noteRepository.CreateNote(ctx, noteInfo)
-	if err != nil {
-		return 0, err
-	}
-
-	return id, nil
+	return s.noteRepository.CreateNote(ctx, noteInfo)
 }
