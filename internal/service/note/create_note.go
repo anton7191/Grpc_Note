@@ -3,16 +3,9 @@ package note
 import (
 	"context"
 
-	desc "github.com/anton7191/note-server-api/pkg/note_v1"
+	"github.com/anton7191/note-server-api/internal/model"
 )
 
-func (s *Service) CreateNote(ctx context.Context, req *desc.CreateNoteRequest) (*desc.CreateNoteResponse, error) {
-	id, err := s.noteRepository.CreateNote(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-
-	return &desc.CreateNoteResponse{
-		Id: id,
-	}, nil
+func (s *Service) CreateNote(ctx context.Context, noteInfo *model.NoteInfo) (int64, error) {
+	return s.noteRepository.CreateNote(ctx, noteInfo)
 }
