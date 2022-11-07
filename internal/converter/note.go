@@ -19,7 +19,7 @@ func ToNoteInfo(noteInfo *desc.NoteInfo) *model.NoteInfo {
 
 func ToDescNoteInfo(noteInfo *model.NoteInfo) *desc.NoteInfo {
 	if noteInfo == nil {
-		noteInfo = new(model.NoteInfo)
+		return nil
 	}
 	return &desc.NoteInfo{
 		Title:  noteInfo.Title,
