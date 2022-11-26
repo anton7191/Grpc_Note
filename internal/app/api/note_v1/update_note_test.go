@@ -6,7 +6,6 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/anton7191/note-server-api/internal/converter"
 	"github.com/anton7191/note-server-api/internal/model"
 	noteMocks "github.com/anton7191/note-server-api/internal/repository/note/mocks"
 	"github.com/anton7191/note-server-api/internal/service/note"
@@ -15,6 +14,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/emptypb"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 func TestUpdateNote(t *testing.T) {
@@ -23,17 +23,24 @@ func TestUpdateNote(t *testing.T) {
 		mockCtrl = gomock.NewController(t)
 
 		id          = gofakeit.Int64()
+		title       = gofakeit.BeerName()
+		text        = gofakeit.BeerStyle()
+		author      = gofakeit.Name()
 		repoErrText = gofakeit.Phrase()
 
 		repoReq = &model.UpdateNoteInfo{
-			Title:  sql.NullString{},
-			Text:   sql.NullString{},
-			Author: sql.NullString{},
+			Title:  sql.NullString{String: title, Valid: true},
+			Text:   sql.NullString{String: text, Valid: true},
+			Author: sql.NullString{String: author, Valid: true},
 		}
 
 		req = &desc.UpdateNoteRequest{
-			Id:   id,
-			Note: converter.ToDescUpdateNoteInfo(repoReq),
+			Id: id,
+			Note: &desc.UpdateNoteInfo{
+				Title:  &wrapperspb.StringValue{Value: title},
+				Text:   &wrapperspb.StringValue{Value: text},
+				Author: &wrapperspb.StringValue{Value: author},
+			},
 		}
 
 		repoErr = errors.New(repoErrText)

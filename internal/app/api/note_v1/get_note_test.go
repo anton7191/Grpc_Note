@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anton7191/note-server-api/internal/converter"
 	"github.com/anton7191/note-server-api/internal/model"
 	noteMocks "github.com/anton7191/note-server-api/internal/repository/note/mocks"
 	"github.com/anton7191/note-server-api/internal/service/note"
@@ -15,6 +14,7 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func TestGetNote(t *testing.T) {
@@ -50,7 +50,16 @@ func TestGetNote(t *testing.T) {
 		}
 
 		validRes = &desc.GetNoteResponse{
-			Note: converter.ToDescNote(repoRes),
+			Note: &desc.Note{
+				Id:        id,
+				CreatedAt: timestamppb.New(createdAt),
+				UpdatedAt: timestamppb.New(updatedAt.Time),
+				Note: &desc.NoteInfo{
+					Title:  title,
+					Text:   text,
+					Author: author,
+				},
+			},
 		}
 
 		repoErr = errors.New(repoErrText)

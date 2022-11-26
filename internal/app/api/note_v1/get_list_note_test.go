@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anton7191/note-server-api/internal/converter"
 	"github.com/anton7191/note-server-api/internal/model"
 	noteMocks "github.com/anton7191/note-server-api/internal/repository/note/mocks"
 	"github.com/anton7191/note-server-api/internal/service/note"
@@ -16,6 +15,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/protobuf/types/known/emptypb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func TestListNote(t *testing.T) {
@@ -29,22 +29,47 @@ func TestListNote(t *testing.T) {
 	)
 
 	repoRes := []*model.Note{}
+	validResSlice := []*desc.Note{}
+	var (
+		id                  int64
+		title, text, author string
+		createdAt           time.Time
+		updatedAt           sql.NullTime
+	)
 
 	for i := 0; i < 5; i++ {
+		id = gofakeit.Int64()
+		title = gofakeit.BeerName()
+		text = gofakeit.BeerName()
+		author = gofakeit.BeerName()
+		createdAt = time.Now()
+		updatedAt = sql.NullTime{Time: time.Now(), Valid: true}
+
 		repoRes = append(repoRes, &model.Note{
-			ID:        gofakeit.Int64(),
-			CreatedAt: time.Now(),
-			UpdatedAt: sql.NullTime{},
+			ID:        id,
+			CreatedAt: createdAt,
+			UpdatedAt: updatedAt,
 			Info: &model.NoteInfo{
-				Title:  gofakeit.BeerName(),
-				Text:   gofakeit.BeerName(),
-				Author: gofakeit.BeerName(),
+				Title:  title,
+				Text:   text,
+				Author: author,
+			},
+		})
+
+		validResSlice = append(validResSlice, &desc.Note{
+			Id:        id,
+			CreatedAt: timestamppb.New(createdAt),
+			UpdatedAt: timestamppb.New(updatedAt.Time),
+			Note: &desc.NoteInfo{
+				Title:  title,
+				Text:   text,
+				Author: author,
 			},
 		})
 	}
 
 	validRes := &desc.GetListNoteResponse{
-		Note: converter.ToDescNoteSlice(repoRes),
+		Note: validResSlice,
 	}
 
 	noteMock := noteMocks.NewMockRepository(mockCtrl)
