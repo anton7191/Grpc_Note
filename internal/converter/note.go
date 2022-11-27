@@ -38,14 +38,14 @@ func ToUpdateNoteInfo(updateNoteInfo *desc.UpdateNoteInfo) *model.UpdateNoteInfo
 	}
 
 	if updateNoteInfo.GetText() != nil {
-		title = sql.NullString{
+		text = sql.NullString{
 			String: updateNoteInfo.GetText().GetValue(),
 			Valid:  updateNoteInfo.GetText() != nil,
 		}
 	}
 
 	if updateNoteInfo.GetAuthor() != nil {
-		title = sql.NullString{
+		author = sql.NullString{
 			String: updateNoteInfo.GetAuthor().GetValue(),
 			Valid:  updateNoteInfo.GetAuthor() != nil,
 		}
